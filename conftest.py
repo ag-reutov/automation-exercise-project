@@ -14,6 +14,8 @@ def driver():
     
     driver = webdriver.Chrome(options=options)
     
+    driver.set_page_load_timeout(10)
+
     yield driver 
     
     print("\n[Teardown] Closing browser...")

@@ -14,8 +14,13 @@ class BasePage:
     def click(self, locator):
         self.find(locator).click()
 
-    def set(self, locator, value):
+    def click_js(self, locator):
         element = self.find(locator)
-        element.click()  
-        element.clear()  
-        element.send_keys(value) 
+        self.driver.execute_script("arguments[0].click();", element)
+
+    def set(self, locator, value):
+        """Finds the element, clicks via JS to bypass ads, clears, and types."""
+        element = self.find(locator)
+        self.driver.execute_script("arguments[0].click();", element)
+        element.clear()
+        element.send_keys(value)
