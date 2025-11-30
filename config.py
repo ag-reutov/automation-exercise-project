@@ -26,3 +26,6 @@ STATE = "Quebec"
 CITY = "Montreal"
 ZIPCODE = "H3Z 2Y7"
 MOBILE = "1234567890"
+
+# --- SEARCH DATA ---
+SEARCH_TERM = "Tshirt"
