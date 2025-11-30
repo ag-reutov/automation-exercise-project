@@ -2,26 +2,34 @@ import config
 from pages.products_page import ProductsPage
 from pages.login_page import LoginPage
 
-def test_product_search(driver):
+def test_add_product_to_cart_flow(driver):
     products_page = ProductsPage(driver)
     login_page = LoginPage(driver) 
 
-    # 1. Start on Home Page
+    # 1. Setup & Search
     driver.get("https://automationexercise.com/")
+    login_page.dismiss_consent() 
     
-    login_page.dismiss_consent() # <--- 3. DISMISS AD
-
-    # 2. Navigate to Products Page
     print("Navigating to Products page...")
     products_page.navigate_to_products_page()
     
-    # 3. Perform Search
     print(f"Searching for: {config.SEARCH_TERM}")
     products_page.search_for_product(config.SEARCH_TERM)
     
-    # 4. Verification
-    # We assert that the "Searched Products" header is visible
-    search_header = products_page.is_search_successful()
-    assert "SEARCHED PRODUCTS" in search_header
+    # 2. Add to Cart
+    print("Performing hover and Add to Cart action...")
+    products_page.add_product_to_cart()
+
+    # 3. Dismiss Modal 
+    print("Handling success modal...")
+    products_page.handle_success_modal()
     
-    print(f"✅ Success! Search confirmed by header: {search_header}")
+    # 4. Final E2E Verification
+    print("Navigating to Cart page for final verification...")
+    products_page.navigate_to_cart()
+
+    # Final Assertion: Verify we landed on the Cart page
+    assert "view_cart" in driver.current_url
+    
+    
+    print("✅ Success! Full E2E Shopping Journey completed.")
