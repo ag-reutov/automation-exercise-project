@@ -1,9 +1,10 @@
 import pytest
 import config  
 from pages.login_page import LoginPage
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 # --- TEST DATA ---
-
 LOGIN_TEST_DATA = [
     (config.VALID_USER, config.INVALID_PASSWORD, config.LOGIN_ERROR_TEXT),
     (config.UNREGISTERED_USER, "any_pass", config.LOGIN_ERROR_TEXT)
@@ -18,6 +19,9 @@ def test_successful_login(driver):
     print("Attempting successful login...")
     # Clean usage: We know exactly where VALID_USER comes from.
     login_page.login(config.VALID_USER, config.VALID_PASSWORD)
+
+
+    WebDriverWait(driver, 20).until(EC.url_to_be("https://automationexercise.com/"))
 
     login_status_text = login_page.get_login_status_text()
     assert "Logged in as" in login_status_text
