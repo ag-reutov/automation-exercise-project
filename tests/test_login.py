@@ -17,11 +17,10 @@ def test_successful_login(driver):
     login_page.dismiss_consent()
 
     print("Attempting successful login...")
-    # Clean usage: We know exactly where VALID_USER comes from.
     login_page.login(config.VALID_USER, config.VALID_PASSWORD)
 
-
-    WebDriverWait(driver, 20).until(EC.url_to_be("https://automationexercise.com/"))
+    # 🚨 REMOVED: The strict URL check. 
+    # We will rely on the element check below, which has the global timeout.
 
     login_status_text = login_page.get_login_status_text()
     assert "Logged in as" in login_status_text

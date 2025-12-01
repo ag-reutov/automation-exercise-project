@@ -3,39 +3,34 @@
 name: E2E Regression Tests
 
 on:
-  # 🚨 Trigger the workflow whenever code is pushed to the 'main' or 'master' branch
+  
   push:
     branches: [ main, master ]
-  # Allows you to manually trigger the workflow from the GitHub UI
   workflow_dispatch:
 
 jobs:
   run-pytest:
-    # Use an Ubuntu environment for reliability
     runs-on: ubuntu-latest
     
     steps:
-    - name: ⬇️ Checkout Repository
+    - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: 🐍 Set up Python
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x' # Use the latest stable Python 3
+        python-version: '3.x' 
 
-    - name: ⚙️ Install Dependencies
+    - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        # Install dependencies from your requirements file (needed for Selenium, Pytest)
         pip install -r requirements.txt
     
-    - name: 🌐 Setup Chrome Environment
-      # This step ensures Chrome and the driver are available on the Ubuntu runner
+    - name: Setup Chrome Environment
       run: |
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
         
-    - name: 🧪 Run Pytest Suite
-      # Run all your tests using the Pytest command
+    - name: Run Pytest Suite
       run: |
         python -m pytest -v --disable-warnings

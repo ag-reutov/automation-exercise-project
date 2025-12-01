@@ -28,7 +28,6 @@ def test_add_product_to_cart_flow(driver):
     print("Navigating to Cart page for final verification...")
     products_page.navigate_to_cart()
 
-    # Final Assertion: Verify we landed on the Cart page
     assert "view_cart" in driver.current_url
     
     
