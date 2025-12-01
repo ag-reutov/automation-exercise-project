@@ -1,3 +1,4 @@
+import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -25,6 +26,9 @@ class LoginPage(BasePage):
     def login(self, email, password):
         self.set(self.EMAIL_FIELD, email)
         self.set(self.PASSWORD_FIELD, password)
+        self.click(self.LOGIN_BTN)
+        time.sleep(1) 
+        
         self.click(self.LOGIN_BTN)
     
     def signup(self, name, email):
