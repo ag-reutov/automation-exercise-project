@@ -37,7 +37,11 @@ def test_signup_flow(driver):
     # 4. Create Account
     account_page.click_create_account()
 
-    # 5. Verification (The End of the Identity Pillar!)
-    # We check if the URL contains 'account_created'
+    # 5. Verification
     assert "account_created" in driver.current_url
     print("✅ Success! Account Successfully Created.")
+
+    # 6. Cleanup (Delete the account we just made)
+    print("🧹 Cleaning up: Deleting account...")
+    account_page.delete_account()
+    print("✅ Account Deleted. System clean.")
