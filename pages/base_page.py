@@ -11,7 +11,7 @@ class BasePage:
 
     def find(self, locator: tuple[By, str]) -> WebElement:
         """Finds element waiting for it to be clickable (best for buttons/links)."""
-        return self.wait.until(EC.element_to_be_clickable(locator))
+        return self.wait.until(EC.visibility_of_element_located(locator))
         
     def find_visible(self, locator: tuple[By, str]) -> WebElement:
         """🚨 NEW: Finds element waiting only for it to be visible (best for text/status)."""
